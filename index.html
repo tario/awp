@@ -41,6 +41,7 @@
 				audio.play();
 
 				if (lastInterval) clearInterval(lastInterval);
+				ammo--;
 				lastInterval = setInterval(function() {
 					audio.currentTime = shootInit;
 					ammo--;
