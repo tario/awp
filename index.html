@@ -1,93 +1,8 @@
 <html>
 	<head>
 		<title>Avtomat Kalashnikova 47</title>
-		<style>
-			@font-face {
-			    font-family: 'russian';
-			    src: url('russian.ttf');
-			}
-
-			body {
-				background-color: #800000;
-			}
-
-			p {
-				color: #ffffff;
-				font-family: 'russian';
-				font-size: 200%;
-			}		
-		</style>
-		<script>
-			var shootInit = 0.0;
-			var reloadUrl = "reloadb.wav";
-			var ak47url = "ak47d.wav";
-
-			var shoot = false;
-			var reloading = false;
-			var ammo = 31;
-			var audio;
-
-			var reload = function() {
-				var raudio = new Audio(reloadUrl);
-				raudio.play();
-			};
-
-			var lastInterval;
-			var play = function() {
-				if (ammo < 0) return;
-
- 				console.log("play");
-				audio = new Audio(ak47url);
-				audio.currentTime = shootInit;
-				audio.play();
-
-				if (lastInterval) clearInterval(lastInterval);
-				ammo--;
-				lastInterval = setInterval(function() {
-					audio.currentTime = shootInit;
-					ammo--;
-					if (ammo <=0) {
-						if (lastInterval) clearInterval(lastInterval);		
-					}
-				}, 100);
-			};
-
-			var stop = function() {
-				if (lastInterval) clearInterval(lastInterval);
-
-				console.log("stop");
-				//audio.pause();
-				//audio.currentTime = shootInit;
-			};
-
-			window.onkeydown = function(e) {
-				if (e.keyCode !== 13 && e.keyCode !== 111) {
-					reloading = false;
-				}
-				if (e.keyCode === 13) {
-					if (ammo < 31) reloading = true;
-				} else {
-					if (e.keyCode !== 111) {
-						if (!shoot) play();
-						shoot = true;
-					}
-				}
-			};
-
-			window.onkeyup = function(e) {
-				if (e.keyCode === 111) {
-					if (reloading) {
-						ammo = 31;
-						reload();
-					}
-					reloading = false;
-				}
-
-				console.log("keyup");
-				if (shoot) stop();
-				shoot = false;
-			};
-		</script>
+		<link rel="stylesheet" href="css/ak47.css">
+		<script src="js/ak47.js"></script>
 	</head>
 
 	<body>
@@ -99,6 +14,6 @@
 			Presiona "ENTER" Y despues "/" para recargar
 		</p>
 
-		<img src="ak47.jpg"></img>
+		<img src="img/ak47.jpg"></img>
 	</body>
 </html>

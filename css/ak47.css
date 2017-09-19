@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'russian';
+    src: url('russian.ttf');
+}
+
+body {
+  background-color: #800000;
+}
+
+p {
+  color: #ffffff;
+  font-family: 'russian';
+  font-size: 200%;
+}   
