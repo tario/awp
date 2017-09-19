@@ -7,9 +7,12 @@ var reloading = false;
 var ammo = 31;
 var audio;
 
+var reloadAudioElement = new Audio(reloadUrl);
+var shootAudioElement = new Audio(ak47url);
+
 var reload = function() {
-  var raudio = new Audio(reloadUrl);
-  raudio.play();
+  reloadAudioElement.currentTime = 0;
+  reloadAudioElement.play();
 };
 
 var lastInterval;
@@ -17,14 +20,13 @@ var play = function() {
   if (ammo < 0) return;
 
   console.log("play");
-  audio = new Audio(ak47url);
-  audio.currentTime = shootInit;
-  audio.play();
+  shootAudioElement.currentTime = shootInit;
+  shootAudioElement.play();
 
   if (lastInterval) clearInterval(lastInterval);
   ammo--;
   lastInterval = setInterval(function() {
-    audio.currentTime = shootInit;
+    shootAudioElement.currentTime = shootInit;
     ammo--;
     if (ammo <=0) {
       if (lastInterval) clearInterval(lastInterval);    
@@ -36,8 +38,8 @@ var stop = function() {
   if (lastInterval) clearInterval(lastInterval);
 
   console.log("stop");
-  //audio.pause();
-  //audio.currentTime = shootInit;
+  //shootAudioElement.pause();
+  //shootAudioElement.currentTime = shootInit;
 };
 
 window.onkeydown = function(e) {
