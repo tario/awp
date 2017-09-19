@@ -12,3 +12,11 @@ p {
   font-family: 'russian';
   font-size: 200%;
 }   
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}

@@ -17,7 +17,7 @@ var reload = function() {
 
 var lastInterval;
 var play = function() {
-  if (ammo < 0) return;
+  if (ammo <= 0) return;
 
   console.log("play");
   shootAudioElement.currentTime = shootInit;
@@ -30,6 +30,7 @@ var play = function() {
     ammo--;
     if (ammo <=0) {
       if (lastInterval) clearInterval(lastInterval);    
+      document.getElementById("reload_instructions").classList.add("blink");
     }
   }, 100);
 };
@@ -61,6 +62,8 @@ window.onkeyup = function(e) {
     if (reloading) {
       ammo = 31;
       reload();
+
+      document.getElementById("reload_instructions").classList.remove("blink");
     }
     reloading = false;
   }
