@@ -35,3 +35,16 @@ p {
 img.ak47 {
   width: 100%;
 }
+
+div.silueta {
+  position: fixed;
+  left: 0;
+  z-index: 1;
+  opacity: 0.2;
+  transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+}
+
+div.silueta:hover {
+  opacity: 0.8;
+}
