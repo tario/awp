@@ -28,4 +28,10 @@ p {
 }
 
 .social-buttons {
+  background-color: #800000;
+  padding: 20px;
+}
+
+img.ak47 {
+  width: 100%;
 }
