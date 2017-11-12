@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'britannic';
+    src: url('britannic.ttf');
+}
+
+body {
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#800000, #000080); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#800000, #000080); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#800000, #000080); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#800000, #000080); /* Standard syntax */
+}
+
+p {
+  color: #ffffff;
+  font-family: 'britannic';
+  font-size: 200%;
+}   
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.left-bottom-corner {
+  bottom: 0;
+  right: 0;
+  position: fixed;
+}
+
+.social-buttons {
+  padding: 20px;
+}
+
+img.awp {
+  width: 100%;
+}
+
+div.silueta {
+  position: fixed;
+  left: 0;
+  z-index: 1;
+  opacity: 0.2;
+  transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+}
+
+div.silueta:hover {
+  opacity: 0.8;
+}

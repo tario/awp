@@ -1,13 +1,16 @@
 var shootInit = 0.0;
 var reloadUrl = "wav/reloadb.wav";
-var ak47url = "wav/ak47d.wav";
+var reloadSingleUrl = "wav/reload_single.wav";
+var ak47url = "wav/awp.mp3";
 
 var shoot = false;
 var reloading = false;
-var ammo = 31;
+var ammo = 10;
+var shouldExtractCase = false;
 var audio;
 
 var reloadAudioElement = new Audio(reloadUrl);
+var reloadSingleAudioElement = new Audio(reloadSingleUrl);
 var shootAudioElement = new Audio(ak47url);
 
 var reload = function() {
@@ -16,39 +19,47 @@ var reload = function() {
 };
 
 var lastInterval;
-var play = function() {
-  if (ammo <= 0) return;
+var shootDisabled = false;
 
-  console.log("play");
+var play = function() {
+  if (shouldExtractCase || shootDisabled || ammo <= 0) return;
+
+  shootDisabled = true;
+  setTimeout(function() {
+    shootDisabled = false;
+  }, 1500);
+
   shootAudioElement.currentTime = shootInit;
   shootAudioElement.play();
 
-  if (lastInterval) clearInterval(lastInterval);
+  shouldExtractCase = true;
   ammo--;
-  lastInterval = setInterval(function() {
-    shootAudioElement.currentTime = shootInit;
-    ammo--;
-    if (ammo <=0) {
-      if (lastInterval) clearInterval(lastInterval);    
-      document.getElementById("reload_instructions").classList.add("blink");
-    }
-  }, 100);
+  if (ammo === 0) {
+    document.getElementById("reload_instructions").classList.add("blink");
+  }
+
+  document.getElementById("extract_case_instructions").classList.add("blink");
 };
 
 var stop = function() {
-  if (lastInterval) clearInterval(lastInterval);
-
   console.log("stop");
-  //shootAudioElement.pause();
-  //shootAudioElement.currentTime = shootInit;
 };
 
 window.onkeydown = function(e) {
   if (e.keyCode !== 13 && e.keyCode !== 111) {
     reloading = false;
   }
-  if (e.keyCode === 13) {
-    if (ammo < 31) reloading = true;
+  console.log(e.keyCode);
+  if (e.keyCode === 8) {
+    reloadSingleAudioElement.currentTime = 0;
+    reloadSingleAudioElement.play();
+
+    if (shouldExtractCase) {
+      shouldExtractCase = false;
+      document.getElementById("extract_case_instructions").classList.remove("blink");
+    }
+  } else if (e.keyCode === 13) {
+    if (ammo < 10) reloading = true;
   } else {
     if (e.keyCode !== 111) {
       if (!shoot) play();
@@ -60,7 +71,7 @@ window.onkeydown = function(e) {
 window.onkeyup = function(e) {
   if (e.keyCode === 111) {
     if (reloading) {
-      ammo = 31;
+      ammo = 10;
       reload();
 
       document.getElementById("reload_instructions").classList.remove("blink");
